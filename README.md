@@ -1,4 +1,5 @@
 # NgLibrary
+Angular project for book search. Uses OpenLibrary API: https://openlibrary.org/developers/api
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
 
