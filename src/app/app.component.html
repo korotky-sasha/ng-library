@@ -40,7 +40,7 @@
       <div *ngFor="let result of searchResult.docs" class="row result">
         <img
             *ngIf="result.cover_i > 0"
-            [src]="'http://covers.openlibrary.org/b/id/' + result.cover_i + '-M.jpg'"
+            [src]="'https://covers.openlibrary.org/b/id/' + result.cover_i + '-M.jpg'"
             (error)="invalidImage($event)"
             alt="Book cover"
             class="cover">

@@ -17,7 +17,7 @@ export class BookService {
 
   search(question: string, maxResults: number, page: number = 1, mode: string = 'q'): Observable<SearchResult> {
     return this.http.get(
-      'http://openlibrary.org/search.json',
+      'https://openlibrary.org/search.json',
       {params: {[mode]: question, limit: maxResults.toString(), offset: (maxResults * (page - 1)).toString()}})
       .pipe(
         map(value => {
