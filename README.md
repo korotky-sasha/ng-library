@@ -1,6 +1,10 @@
 # NgLibrary
 Angular project for book search. Uses OpenLibrary API: https://openlibrary.org/developers/api
 
+You can see working sample on Stackblitz: https://stackblitz.com/github/korotky-sasha/ng-library
+
+Used technologies: Angular 9, RxJs
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
 
 ## Development server

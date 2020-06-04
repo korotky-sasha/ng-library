@@ -13,6 +13,7 @@
 
 .searchbar {
   justify-content: space-between;
+  flex-wrap: wrap;
   background: #f1f5f9;
   .search-type {
     width: 100px
