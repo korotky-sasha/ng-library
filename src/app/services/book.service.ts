@@ -5,11 +5,14 @@ import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
 
 import { SearchResult } from "../shared/models";
+import { environment }  from "../../environments/environment";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookService {
+  baseUrl = environment.baseUrl;
 
   constructor(
     public http: HttpClient
@@ -17,7 +20,7 @@ export class BookService {
 
   search(question: string, maxResults: number, page: number = 1, mode: string = 'q'): Observable<SearchResult> {
     return this.http.get(
-      'https://openlibrary.org/search.json',
+      this.baseUrl,
       {params: {[mode]: question, limit: maxResults.toString(), offset: (maxResults * (page - 1)).toString()}})
       .pipe(
         map(value => {

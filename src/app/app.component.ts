@@ -1,12 +1,12 @@
-import { Component, OnInit }                               from '@angular/core';
+import { Component, OnInit }                  from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
-import { PageEvent }            from "@angular/material/paginator";
+import { PageEvent } from "@angular/material/paginator";
 
 import { BookService }       from "./services/book.service";
 import { SearchResult }      from "./shared/models";
-import { IMAGE_PLACEHOLDER }    from "./shared/constants/image-placeholder.constant";
-import { debounceTime } from "rxjs/operators";
+import { IMAGE_PLACEHOLDER } from "./shared/constants/image-placeholder.constant";
+import { debounceTime }      from "rxjs/operators";
 
 
 @Component({
@@ -103,7 +103,7 @@ export class AppComponent implements OnInit{
   }
 
   invalidImage(event) {
-    event.target.src = IMAGE_PLACEHOLDER;
+    event.target.src = this.imagePlaceholderSrc;
   }
 
   fullStar(edition_count: number) {
