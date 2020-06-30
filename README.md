@@ -1,5 +1,5 @@
 # NgLibrary
-Angular project for book search. Uses OpenLibrary API: https://openlibrary.org/developers/api
+Angular project for book search. Uses OpenLibrary API: https://openlibrary.org/developers/api and Google Books Embedded Viewer: https://developers.google.com/books/docs/viewer/developers_guide
 
 You can see working sample on Stackblitz: https://stackblitz.com/github/korotky-sasha/ng-library
 

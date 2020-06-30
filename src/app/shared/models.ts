@@ -9,6 +9,7 @@ export interface SearchDoc {
   ebook_count_i: number,
   language: string[],
   key: string,
+  id_google: string[],
   more: boolean
 }
 

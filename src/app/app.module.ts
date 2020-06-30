@@ -14,8 +14,11 @@ import { MatIconModule }            from "@angular/material/icon";
 import { MatCardModule }            from "@angular/material/card";
 import { MatMenuModule }            from "@angular/material/menu";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent }     from "./app.component";
+import { AppRoutingModule }     from './app-routing.module';
+import { AppComponent }         from "./app.component";
+import { MatSidenavModule }     from "@angular/material/sidenav";
+import { MatListModule }        from "@angular/material/list";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 
 @NgModule({
   declarations: [
@@ -36,7 +39,10 @@ import { AppComponent }     from "./app.component";
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSidenavModule,
+    MatListModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

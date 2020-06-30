@@ -1,3 +1,5 @@
+$result-width: 480px;
+
 .row {
   display: flex;
   flex-direction: row;
@@ -7,12 +9,14 @@
   background: #f1f5f9;
 }
 
-.no-shadow{
-  box-shadow: none
+.book-info{
+  width: inherit;
+  box-shadow: none;
 }
 
 .searchbar {
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
   background: #f1f5f9;
   .search-type {
@@ -24,8 +28,14 @@
   background: #f1f5f9;
 }
 
-.cover{
-  max-width: 180px;
+.cover-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  min-width: 180px;
+  .cover{
+    max-width: 180px;
+  }
 }
 
 .search-form {
@@ -45,13 +55,19 @@
   margin: 20px;
 }
 
-.result-container {
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin: 20px;
+.text-center {
+  text-align: center;
+}
+
+.result-grid {
+  display: grid;
+  grid-auto-flow: row;
+  grid-auto-columns: auto;
+  grid-template-columns: repeat(auto-fill, minmax(530px, 1fr));
   .result {
-    width: min-content;
-    margin: 20px 10px;
+    width: $result-width;
+    padding: 15px;
+    margin: 20px auto;
     align-items: flex-start;
     background: #ffffff;
     border-radius: 10px;
@@ -63,9 +79,36 @@
         color: #fbb341
       }
     }
+    .options-button {
+      margin-left: auto;
+    }
   }
 }
 
 .wrap-text {
   white-space: pre-wrap;
+}
+
+.dense-grid {
+  display: grid;
+  grid-auto-flow: row;
+  grid-auto-columns: auto;
+  grid-template-columns: repeat(auto-fit, minmax(100px, auto));
+  align-items: center;
+  justify-items: center;
+  .item1 {
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+  }
+  .item2 {
+    border: 1px solid black;
+    width: 200px;
+    height: 100px;
+  }
+  .item3 {
+    border: 1px solid black;
+    width: 100px;
+    height: 200px;
+  }
 }

@@ -27,60 +27,72 @@
       (page)="paginatorChange($event)"
       class="paginator"></mat-paginator>
   </div>
-    <div *ngIf="searchActive" class="spinner-container">
-      <mat-spinner></mat-spinner>
-    </div>
-    <div *ngIf="errorMessage">
-      <p>Error: {{errorMessage}}</p>
-    </div>
-    <div *ngIf="noSearchResult">
-      <h2>No results found</h2>
-    </div>
-    <div class="row result-container">
-      <div *ngFor="let result of searchResult.docs" class="row result">
+  <div *ngIf="searchActive" class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div *ngIf="errorMessage">
+    <p>Error: {{errorMessage}}</p>
+  </div>
+  <div *ngIf="noSearchResult">
+    <h2 class="text-center">No results found</h2>
+  </div>
+  <div class="result-grid">
+    <div *ngFor="let result of searchResult.docs" class="row result">
+      <div class="cover-container">
         <img
-            *ngIf="result.cover_i > 0"
-            [src]="'https://covers.openlibrary.org/b/id/' + result.cover_i + '-M.jpg'"
-            (error)="invalidImage($event)"
-            alt="Book cover"
-            class="cover">
-          <img
-            *ngIf="!result.cover_i || result.cover_i < 1"
-            [src]="imagePlaceholderSrc"
-            alt="No cover"
-            class="cover">
-        <mat-card class="no-shadow">
-          <mat-card-title-group>
-            <mat-card-title>{{result.title_suggest}}</mat-card-title>
-            <mat-card-subtitle>by {{result.author_name ? result.author_name.join(', ') : 'unknown'}}</mat-card-subtitle>
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Actions">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button
-                [disabled]="!(result.author_key && result.author_name)"
-                (click)="showAuthorBooks(result.author_key[0], result.author_name[0])"
-                mat-raised-button
-                class="wrap-text">All books of this author
-              </button>
-            </mat-menu>
-          </mat-card-title-group>
-          <mat-card-content>
-            <div class="row rank">
-              <mat-icon class="star">star</mat-icon>
-              <mat-icon class="star">star</mat-icon>
-              <mat-icon class="star">star</mat-icon>
-              <mat-icon class="star">star</mat-icon>
-              <mat-icon *ngIf="fullStar(result.edition_count)" class="star">star</mat-icon>
-              <mat-icon *ngIf="!fullStar(result.edition_count)">star</mat-icon>
-            </div>
-            <p>Editions: {{result.edition_count || 'unknown'}}</p>
-            <p>First publish year: {{result.first_publish_year || 'unknown'}}</p>
-            <p>Publishers: {{result.publisher ? result.publisher.length : 'unknown'}}</p>
-            <p>Languages: {{result.language ? result.language.join(', ') : 'unknown'}}</p>
-            <p>Number of Ebooks: {{result.ebook_count_i || 'unknown'}}</p>
-          </mat-card-content>
-        </mat-card>
+          *ngIf="result.cover_i > 0"
+          [src]="coverUrl + result.cover_i + '-M.jpg'"
+          (error)="invalidImage($event)"
+          alt="Book cover"
+          class="cover">
+        <img
+          *ngIf="!result.cover_i || result.cover_i < 1"
+          [src]="imagePlaceholderSrc"
+          alt="No cover"
+          class="cover">
       </div>
+      <mat-card class="book-info">
+        <mat-card-title-group>
+          <mat-card-title>{{result.title_suggest}}</mat-card-title>
+          <mat-card-subtitle>by {{result.author_name ? result.author_name.join(', ') : 'unknown'}}</mat-card-subtitle>
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Actions" class="options-button">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button
+              [disabled]="!(result.author_key && result.author_name)"
+              (click)="showAuthorBooks(result.author_key[0], result.author_name[0])"
+              mat-menu-item
+              class="wrap-text">All books of this author
+            </button>
+            <button
+              [disabled]="!result.id_google"
+              mat-menu-item
+              (click)="tryPreview(result.id_google)"
+              class="wrap-text">Book preview
+            </button>
+          </mat-menu>
+        </mat-card-title-group>
+        <mat-card-content>
+          <div class="row rank">
+            <mat-icon class="star">star</mat-icon>
+            <mat-icon class="star">star</mat-icon>
+            <mat-icon class="star">star</mat-icon>
+            <mat-icon class="star">star</mat-icon>
+            <mat-icon *ngIf="isFullStar(result.edition_count)" class="star">star</mat-icon>
+            <mat-icon *ngIf="!isFullStar(result.edition_count)">star</mat-icon>
+          </div>
+          <p>Editions: {{result.edition_count || 'unknown'}}</p>
+          <p>First publish year: {{result.first_publish_year || 'unknown'}}</p>
+          <p>Publishers: {{result.publisher ? result.publisher.length : 'unknown'}}</p>
+          <p>Languages: {{result.language ? result.language.join(', ') : 'unknown'}}</p>
+          <p>Number of Ebooks: {{result.ebook_count_i || 'unknown'}}</p>
+        </mat-card-content>
+      </mat-card>
     </div>
+  </div>
+  <h2 *ngIf="previewIndicator" class="text-center">Trying to load book preview:</h2>
+  <mat-progress-bar *ngIf="previewIndicator" mode="determinate" [value]="previewIndicatorValue"></mat-progress-bar>
+  <h2 *ngIf="previewUnavailable" class="text-center">Preview unavailable</h2>
+  <div *ngIf="!previewUnavailable" id="viewerCanvas" style="width: 100%; height: 800px"></div>
 </div>

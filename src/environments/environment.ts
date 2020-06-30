@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://openlibrary.org/search.json'
+  baseUrl: 'https://openlibrary.org/search.json',
+  coverUrl: 'https://covers.openlibrary.org/b/id/'
 };
 
 /*

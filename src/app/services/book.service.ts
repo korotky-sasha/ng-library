@@ -13,6 +13,7 @@ import { environment }  from "../../environments/environment";
 })
 export class BookService {
   baseUrl = environment.baseUrl;
+  googleBookUrl = 'https://www.googleapis.com/books/v1/volumes';
 
   constructor(
     public http: HttpClient
@@ -32,5 +33,10 @@ export class BookService {
           return result;
         })
       );
+  }
+
+  checkBookPreview(googleId: string) {
+    return this.http.get(
+      this.googleBookUrl + '/' + googleId);
   }
 }
