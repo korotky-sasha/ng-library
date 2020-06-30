@@ -159,7 +159,7 @@ export class AppComponent implements OnInit{
         )
         .subscribe(
           value => {
-            if(value && value["accessInfo"]?.embeddable && value.id) {
+            if(value && value.accessInfo && value.accessInfo.embeddable && value.id) {
               this.loadBookPreview(value.id)
               this.previewIndicator = false;
               subscription.unsubscribe();
