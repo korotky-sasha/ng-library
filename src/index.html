@@ -8,6 +8,15 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script>
+    (function(){
+      const redirect = sessionStorage.redirect;
+      delete sessionStorage.redirect;
+      if (redirect && redirect !== location.href) {
+        history.replaceState(null, null, redirect);
+      }
+    })();
+  </script>
   <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
   <script type="text/javascript">
     google.books.load();

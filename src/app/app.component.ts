@@ -1,14 +1,14 @@
 import { Component, OnInit }                  from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { PageEvent }                                                 from "@angular/material/paginator";
-import { debounceTime, take, takeUntil, catchError, map, concatMap } from "rxjs/operators";
-import { from, of, Subject }                                         from "rxjs";
+import { PageEvent }                                                 from '@angular/material/paginator';
+import { debounceTime, take, takeUntil, catchError, map, concatMap } from 'rxjs/operators';
+import { from, of, Subject }                                         from 'rxjs';
 
-import { BookService }       from "./services/book.service";
-import { SearchResult }      from "./shared/models";
-import { IMAGE_PLACEHOLDER } from "./shared/constants/image-placeholder.constant";
-import { environment }       from "../environments/environment";
+import { BookService }       from './services/book.service';
+import { SearchResult }      from './shared/models';
+import { IMAGE_PLACEHOLDER } from './shared/constants/image-placeholder.constant';
+import { environment }       from '../environments/environment';
 
 
 @Component({
@@ -62,7 +62,7 @@ export class AppComponent implements OnInit{
         debounceTime(1000)
       )
       .subscribe(() => {
-      if(this.searchForm.valid) {
+      if (this.searchForm.valid) {
         this.sendSearchRequest(this.searchForm.value.searchString);
       }
     });
@@ -89,10 +89,10 @@ export class AppComponent implements OnInit{
       .subscribe( value => {
         this.searchActive = false;
         this.errorMessage = null;
-        if(value) {
+        if (value) {
           this.noSearchResult = !value.numFound;
         }
-        if(value && value.docs && value.docs.length) {
+        if (value && value.docs && value.docs.length) {
           this.searchResult.numFound = value.numFound ? value.numFound : 0;
           value.docs.forEach((doc, index) => {
             this.searchResult.docs[index] = doc;
@@ -109,13 +109,13 @@ export class AppComponent implements OnInit{
     this.pageEvent = event;
     this.pageSize = this.pageEvent.pageSize;
     this.pageNum = this.pageEvent.pageIndex + 1;
-    if(this.searchResult.numFound) {
+    if (this.searchResult.numFound) {
       this.sendSearchRequest(undefined, this.pageNum);
     }
   }
 
   showAuthorBooks(authorId: string, authorName: string) {
-    this.searchForm.setValue({searchType: 'author', searchString: authorName},{emitEvent: false});
+    this.searchForm.setValue({searchType: 'author', searchString: authorName}, {emitEvent: false});
     this.searchString = authorId;
     this.sendSearchRequest();
   }
@@ -124,18 +124,18 @@ export class AppComponent implements OnInit{
     event.target.src = this.imagePlaceholderSrc;
   }
 
-  isFullStar(edition_count: number) {
-    return edition_count > 10;
+  isFullStar(editionCount: number) {
+    return editionCount > 10;
   }
 
   tryPreview(googleIds: string[]) {
     console.log(googleIds);
-    if(googleIds && googleIds.length) {
+    if (googleIds && googleIds.length) {
       this.previewIndicator = true;
       this.previewIndicatorValue = 0;
       this.previewUnavailable = false;
       let counter = 0;
-      let reqArr = googleIds.map(value => {
+      const reqArr = googleIds.map(value => {
         return this.bookService.checkBookPreview(value);
       });
 
@@ -159,8 +159,8 @@ export class AppComponent implements OnInit{
         )
         .subscribe(
           value => {
-            if(value && value.accessInfo && value.accessInfo.embeddable && value.id) {
-              this.loadBookPreview(value.id)
+            if (value && value.accessInfo && value.accessInfo.embeddable && value.id) {
+              this.loadBookPreview(value.id);
               this.previewIndicator = false;
               subscription.unsubscribe();
             }
@@ -177,7 +177,7 @@ export class AppComponent implements OnInit{
   loadBookPreview(id: string) {
     // google.books should be loaded in index.html
     // @ts-ignore
-    let viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
+    const viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
     viewer.load(id);
   }
 }
